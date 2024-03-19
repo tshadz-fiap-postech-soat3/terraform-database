@@ -1,3 +1,12 @@
+terraform {
+  cloud {
+    organization = "fiap-postech-tsombra"
+    workspaces {
+      name = "terraform-cloud-test"
+    }
+  }
+}
+
 provider "google" {
   project = var.GCP_ID
   region  = var.DB_REGION
@@ -13,21 +22,6 @@ resource "google_sql_database_instance" "mydatabase" {
   name             = var.DB_HOST
   database_version = "MYSQL_8_0"
   region           = var.DB_REGION
-
-  settings {
-    tier = var.DB_TIER
-    ip_configuration {
-      ipv4_enabled = true
-      authorized_networks {
-        name  = "my-network"
-        value = "0.0.0.0/0"
-      }
-    }
-    # database_flags {
-    #   name  = "port"
-    #   value = var.DB_PORT
-    # }
-  }
 }
 
 resource "google_sql_database" "mydatabase_db" {
