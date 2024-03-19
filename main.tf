@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "fiap-postech-tsombra"
     workspaces {
-      name = "terraform-cloud-test"
+      name = "terraform-cloud-database"
     }
   }
 }
