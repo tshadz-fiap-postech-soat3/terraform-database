@@ -10,6 +10,7 @@ terraform {
 provider "google" {
   project = var.GCP_ID
   region  = var.DB_REGION
+  credentials = var.CREDENTIALS
 }
 
 resource "google_sql_user" "mydatabase_user" {
