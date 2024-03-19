@@ -6,10 +6,6 @@ variable "DB_USER" {
   description = "Database root user"
 }
 
-variable "DB_PORT" {
-  description = "Database port"
-}
-
 variable "DB_HOST" {
   description = "Database host"
 }
@@ -24,4 +20,8 @@ variable "DB_TIER" {
 
 variable "GCP_ID" {
   description = "Project ID"
+}
+
+variable "CREDENTIALS" {
+  description = "Cloud Sql Service Credentials"
 }
