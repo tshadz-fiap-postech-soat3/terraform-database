@@ -2,7 +2,7 @@ name: Terraform Apply
 
 on:
   push:
-    branches: [ "dev-fiap-001" ]
+    branches: [ "main" ]
 
 env:
   TF_VAR_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
