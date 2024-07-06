@@ -16,6 +16,7 @@ variable "DB_REGION" {
 
 variable "DB_TIER" {
   description = "Database tier"
+  default = "db-f1-micro"
 }
 
 variable "GCP_ID" {
