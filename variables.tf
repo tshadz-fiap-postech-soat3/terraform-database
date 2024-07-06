@@ -25,3 +25,7 @@ variable "GCP_ID" {
 variable "CREDENTIALS" {
   description = "Cloud Sql Service Credentials"
 }
+
+variable "IMAGE_NAME" {
+  description = "Image Name"
+}

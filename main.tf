@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "fiap-postech-tsombra"
     workspaces {
-      name = "terraform-cloud-database-order-api"
+      name = "workspace"
     }
   }
 }
@@ -20,7 +20,7 @@ resource "google_sql_user" "mydatabase_user" {
 }
 
 resource "google_sql_database_instance" "mydatabase" {
-  name             = var.DB_HOST
+  name             = "${var.IMAGE_NAME}-database"
   database_version = "MYSQL_8_0"
   region           = var.DB_REGION
   settings {
@@ -44,7 +44,7 @@ resource "google_sql_database_instance" "mydatabase" {
 }
 
 resource "google_sql_database" "mydatabase_db" {
-  name      = var.DB_HOST
+  name      = "${var.IMAGE_NAME}-database"
   instance  = google_sql_database_instance.mydatabase.name
   charset   = "utf8"
   collation = "utf8_general_ci"
