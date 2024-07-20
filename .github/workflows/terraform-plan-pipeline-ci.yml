@@ -26,6 +26,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          repository: tshadz-fiap-postech-soat3/terraform-database
+          path: terraform
+          ref: main
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -33,27 +37,39 @@ jobs:
           # terraform_version: 1.4.2
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+      - name: Format Terraform Files
+        run: terraform fmt -recursive
+        working-directory: ./terraform
+  
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check
+        run: terraform fmt -check -recursive
+        working-directory: ./terraform
 
+      - name: Set Terraform Workspace
+        working-directory: ./terraform
+        run: |
+          chmod +x set_workspace.sh
+          ./set_workspace.sh
+  
       - name: Terraform Init
         id: init
         run: terraform init
+        working-directory: ./terraform
       
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
+        working-directory: ./terraform
 
       - name: Terraform Plan
         id: plan
-        if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
+        working-directory: ./terraform
         continue-on-error: true
 
       - name: Update Pull Request
         uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
         env:
           PLAN: ${{ steps.plan.outputs.stdout }}
         with:
